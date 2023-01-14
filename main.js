@@ -63,11 +63,10 @@ function createPokemonCard(pokemon) {
     const type = main_types.find(type => poke_types.indexOf(type) > -1)
     const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     const img = pokemon.sprites.front_default;
-    const color = colors[type];
 
-    pokemonEl.style.backgroundColor = color;
+    pokemonEl.style.backgroundColor = colors[type];
 
-    const pokeInnerHTML = `
+    pokemonEl.innerHTML = `
         <div class="img-container">
             <img src="${img}" alt="pokemon"/>
         </div>
@@ -78,7 +77,6 @@ function createPokemonCard(pokemon) {
         </div>
         
     `;
-    pokemonEl.innerHTML = pokeInnerHTML;
     if (fromBtn) {
         pokerand_container.appendChild(pokemonEl);
     } else

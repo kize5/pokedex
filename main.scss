@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: Lato;
+  font-family: Lato, serif;
   margin: 0;
 }
 
@@ -105,9 +105,6 @@ body {
   scale: 1.1;
   box-shadow: 5px 5px 5px rgba(100,100,100,0.9);
 }
-
-
-.pokemon
 
 .pokemon .number {
   background-color: #eee;
