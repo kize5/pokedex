@@ -22,23 +22,29 @@ const colors = {
 };
 
 const main_types = Object.keys(colors);
+
+// Prépare l'id à envoyer pour aller fetch dans l'api au bon numéro de pokemon
+// + vérifie si le container pour la team est vide ou pas, si ce n'est pas le cas le vide
 const fetchPokemons = async () => {
-    for (let i=1; i<=pokemons_number; i++) {
-        await getPokemon(i);
+    if (fromBtn) {
+        if (!isEmpty) {
+            document.getElementById("pokerand_container").innerHTML = "";
+        }
+        for (let i = 1; i <= pokemons_team; i++) {
+            let rand = Math.floor(Math.random() * 151);
+            await getPokemon(rand)
+        }
+    } else {
+        for (let i = 1; i <= pokemons_number; i++) {
+            await getPokemon(i);
+        }
     }
 }
-
-const randomTeam = async () => {
-    if (!isEmpty) {
-        document.getElementById("pokerand_container").innerHTML = "";
-    }
+// Vérifie si l'appel de la fonction vient de l'appuie du button team ou non, si oui, go true
+function fromBtnCheck() {
     fromBtn = true;
-    for (let i=1; i<=pokemons_team; i++) {
-        let rand = Math.floor(Math.random() * 151);
-        await getPokemonTeam(rand)
-    }
 }
-
+// Va fetch la pokeapi
 const getPokemon = async id => {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
     const res = await fetch(url);
@@ -46,15 +52,10 @@ const getPokemon = async id => {
     createPokemonCard(pokemon);
 }
 
-const getPokemonTeam = async id => {
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    const res = await fetch(url);
-    const pokemon = await res.json();
-    createPokemonCard(pokemon);
-}
-
 fetchPokemons();
-function createPokemonCard (pokemon) {
+
+// créer les éléments pour afficher le HTML sur la page via les données reçu par l'API
+function createPokemonCard(pokemon) {
     const pokemonEl = document.createElement('div');
     pokemonEl.classList.add('pokemon');
 
@@ -81,5 +82,5 @@ function createPokemonCard (pokemon) {
     if (fromBtn) {
         pokerand_container.appendChild(pokemonEl);
     } else
-     poke_container.appendChild(pokemonEl);
+        poke_container.appendChild(pokemonEl);
 }
